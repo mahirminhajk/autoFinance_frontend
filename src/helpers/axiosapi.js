@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosapi = axios.create({
-    baseURL: 'https://auto-finance-backend.vercel.app/api',
+    baseURL: 'https://autofinanceapi.kabsdigital.com/api',
     withCredentials: true,
 });
 

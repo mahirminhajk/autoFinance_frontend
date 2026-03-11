@@ -1,0 +1,85 @@
+.table-wrapper {
+  width: 100%;
+}
+
+.table {
+  display: block;
+  table-layout: fixed;
+  border-collapse: collapse;
+  box-shadow: 0px 10px 10px #ccc;
+  border-radius: 10px;
+  white-space: nowrap;
+  margin: auto;
+  margin-top: 25px;
+  table-layout: auto;
+}
+
+.table thead {
+  background-color: #ccc;
+  color: #222;
+}
+
+.table th,
+.table td {
+  padding: 0.8rem;
+}
+
+.table td {
+  border-top: 0.5px solid #ddd;
+}
+
+.table tbody tr:hover {
+  background-color: #eee;
+}
+
+
+.label {
+  border-radius: 3px;
+  padding: 0.3rem;
+  color: black;
+}
+
+.label-dealer_amount {
+  background-color: violet;
+}
+
+.label-personal_amount {
+  background-color: indigo;
+}
+
+.label-bank_to_customer {
+  background-color: blue;
+}
+
+.label-commission_payout {
+  background-color: green;
+}
+
+.label-RTO_agent_amount {
+  background-color: #ead95b;
+}
+
+.label-office_expense {
+  background-color: orange;
+}
+
+.label-personal_expense {
+  background-color: red;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.actions svg {
+  cursor: pointer;
+}
+
+.delete-btn {
+  color: red;
+}
+
+.edit-btn {
+  color: green;
+}

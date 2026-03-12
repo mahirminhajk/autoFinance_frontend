@@ -43,7 +43,7 @@ const AppInfo = () => {
                 backgroundClip: "text",
               }}
             >
-              AutoFinance
+              Auto Finance
             </h1>
             <Typography className="text-gray-500 text-sm md:text-base mt-1 font-medium tracking-widest uppercase">
               Smart Finance Management

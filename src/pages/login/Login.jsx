@@ -67,7 +67,7 @@ function Login() {
         {/* Brand text */}
         <div className="text-center">
           <h1 className="text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-            AutoFinance
+            Auto Finance
           </h1>
           <p className="text-white/50 text-sm uppercase tracking-[0.2em] font-medium mt-2">
             Smart Finance Management

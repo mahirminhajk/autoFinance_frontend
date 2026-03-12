@@ -155,12 +155,12 @@ function Sidebar({ children }) {
             <div className="flex items-center justify-center bg-white rounded-xl w-11 h-11 lg:w-44 lg:h-12 overflow-hidden px-0 lg:px-3 gap-0 lg:gap-2">
               <img
                 src={logoImage}
-                alt="AutoFinance"
+                alt="Auto Finance"
                 className="flex-shrink-0 object-contain h-7 lg:h-8"
               />
               {/* Only show text on large screens where sidebar is always expanded, no animation */}
               <span className="text-indigo-900 font-extrabold tracking-wide hidden lg:block text-base whitespace-nowrap">
-                AutoFinance
+                Auto Finance
               </span>
             </div>
           </Link>
@@ -196,7 +196,7 @@ function Sidebar({ children }) {
 
         {/* Bottom spacer or version info could go here */}
         <div className="p-4 border-t border-indigo-800 hidden lg:block">
-          <p className="text-white/40 text-xs text-center font-medium">AutoFinance v1.0</p>
+          <p className="text-white/40 text-xs text-center font-medium">Auto Finance v1.0</p>
         </div>
       </div>
 
@@ -214,7 +214,7 @@ function Sidebar({ children }) {
             <div className="flex-1 flex justify-center mr-8">
               <Link to="/" className="flex items-center gap-2">
                 <img src={logoImage} alt="Logo" className="h-7 object-contain" />
-                <span className="text-indigo-900 font-extrabold text-lg tracking-wide">AutoFinance</span>
+                <span className="text-indigo-900 font-extrabold text-lg tracking-wide">Auto Finance</span>
               </Link>
             </div>
           </div>

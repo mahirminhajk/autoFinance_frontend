@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { BsFillTrashFill } from "react-icons/bs";
+import { HiPhone } from "react-icons/hi";
 import "./Table.css";
 import { convertMongoDateToSimpleDate } from "../../../helpers/dateConverter";
 import { Button } from "@material-tailwind/react";
 
 export const Table = ({ rows, handelDelete }) => {
   const [showModal, setShowModal] = useState(false);
-
   const [deleteRow, setDeleteRow] = useState(null);
 
   return (
@@ -24,37 +24,47 @@ export const Table = ({ rows, handelDelete }) => {
           </thead>
 
           <tbody className="text-center  lg:text-base md:text-sm text-xs">
-            {rows.map((row, i) => {
-              const statusText =
-                row.status?.charAt(0).toUpperCase() + row.status?.slice(1) ||
-                "";
-              const convertData = convertMongoDateToSimpleDate(row.date);
-              return (
-                <tr key={i}>
-                  <td>{convertData}</td>
-                  <td>{row.name}</td>
-                  <td className="overflow-hidden whitespace-normal">
-                    {row.desc}
-                  </td>
-                  <td className="text-black">
-                    <span className={`label label-${row.status}`}>
-                      {statusText}
-                    </span>
-                  </td>
-                  <td className="fit">
+            {rows.length === 0 ? (
+              <tr>
+                <td colSpan="5" className="py-16 px-6">
+                  <div className="flex flex-col items-center justify-center text-center gap-3">
+                    <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center">
+                      <HiPhone className="text-blue-400 text-3xl" />
+                    </div>
+                    <div>
+                      <p className="text-gray-700 font-bold text-base">No Call Records Found</p>
+                      <p className="text-gray-400 text-sm mt-1">
+                        No call records match your current search or filter.
+                      </p>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            ) : (
+              rows.map((row, i) => {
+                const statusText =
+                  row.status?.charAt(0).toUpperCase() + row.status?.slice(1) || "";
+                const convertData = convertMongoDateToSimpleDate(row.date);
+                return (
+                  <tr key={i}>
+                    <td>{convertData}</td>
+                    <td>{row.name}</td>
+                    <td className="overflow-hidden whitespace-normal">{row.desc}</td>
+                    <td className="text-black">
+                      <span className={`label label-${row.status}`}>{statusText}</span>
+                    </td>
+                    <td className="fit">
                       <span className="actions">
                         <BsFillTrashFill
-                          onClick={() => {
-                            setShowModal(true);
-                            setDeleteRow(row._id);
-                          }}
+                          onClick={() => { setShowModal(true); setDeleteRow(row._id); }}
                           className="delete-btn"
                         />
                       </span>
-                  </td>
-                </tr>
-              );
-            })}
+                    </td>
+                  </tr>
+                );
+              })
+            )}
           </tbody>
         </table>
       </div>

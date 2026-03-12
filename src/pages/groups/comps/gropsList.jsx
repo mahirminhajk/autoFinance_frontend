@@ -167,11 +167,22 @@ function GroupList() {
               //* if the data is empty then show no data found, else show the data}
               data.length === 0 ? (
                 <tr>
-                  <td
-                    colSpan="5"
-                    className="text-center text-red-800 text-lg font-bold"
-                  >
-                    No Data Found
+                  <td colSpan="6" className="py-16 px-6">
+                    <div className="flex flex-col items-center justify-center text-center gap-3">
+                      <div className="w-14 h-14 rounded-2xl bg-green-50 flex items-center justify-center">
+                        <RiWhatsappFill className="text-green-400 text-3xl" />
+                      </div>
+                      <div>
+                        <p className="text-gray-700 font-bold text-base">No Groups Found</p>
+                        <p className="text-gray-400 text-sm mt-1">
+                          {searchQuery
+                            ? `No results for "${searchQuery}". Try a different search.`
+                            : filterQuery !== "all"
+                            ? `No groups match the current filter. Try changing the filter.`
+                            : "No groups have been founded yet."}
+                        </p>
+                      </div>
+                    </div>
                   </td>
                 </tr>
               ) : (

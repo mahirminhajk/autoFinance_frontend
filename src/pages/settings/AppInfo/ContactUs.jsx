@@ -9,51 +9,38 @@ const ContactUs = () => {
 
   return (
     <Sidebar>
-      <div className="m-auto bg-blue-100 h-screen">
+      <div className="bg-blue-100 w-full min-h-screen">
         {/* Breadcrumbs */}
         <Breadcrumbs fullWidth className="bg-white">
-          <a
-            onClick={() => navigate("/")}
-            className="opacity-60 text-xs lg:text-sm"
-          >
+          <a onClick={() => navigate("/")} className="opacity-60 text-xs lg:text-sm cursor-pointer">
             <AiFillHome />
           </a>
-          <a
-            onClick={() => navigate("/settings")}
-            className="opacity-60 text-xs lg:text-sm"
-          >
+          <a onClick={() => navigate("/settings")} className="opacity-60 text-xs lg:text-sm cursor-pointer">
             Settings
           </a>
-          <a
-            onClick={() => navigate("/settings/appInfo")}
-            className="opacity-60 text-xs lg:text-sm"
-          >
-            AppInfo
+          <a onClick={() => navigate("/settings/appInfo")} className="opacity-60 text-xs lg:text-sm cursor-pointer">
+            App Info
           </a>
           <a className="text-xs lg:text-sm">Contact Us</a>
         </Breadcrumbs>
 
         {/* Page Title */}
-        <div className="text-left ">
-          <Typography className="font-bold p-6 text-lg lg:text-2xl text-gray-800">
-            Developer Contact Information
+        <div className="px-6 pt-6 pb-2">
+          <Typography className="font-bold text-lg lg:text-2xl text-gray-800">
+            Contact Information
+          </Typography>
+          <Typography className="text-gray-500 text-sm mt-1">
+            Reach out to us for support or inquiries.
           </Typography>
         </div>
 
-        {/* Developer Contact Cards */}
-        <div className="grid grid-cols-1 p-6 lg:grid-cols-2 gap-8 ">
-          {/* Reusable ContactCard component instances */}
+        {/* Contact Cards — centered */}
+        <div className="flex flex-col items-center px-6 py-6 gap-6">
           <ContactCard
-            name="Sabiq Hashil"
-            phoneNumber="755 987 3623"
-            whatsappNumber="917559873623"
-            email="sabiqhashilkp786@gmail.com"
-          />
-          <ContactCard
-            name="Mahir Minhaj"
-            phoneNumber="808 600 9808"
-            whatsappNumber="918086009808"
-            email="mahirminhajk.developer@gmail.com"
+            name="KABS Digital"
+            phoneNumber="773 694 7647"
+            whatsappNumber="917736947647"
+            email="info@kabsdigital.com"
           />
         </div>
       </div>

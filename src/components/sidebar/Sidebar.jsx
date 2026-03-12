@@ -12,7 +12,7 @@ import { MdLocalLibrary, MdAccountBalanceWallet } from "react-icons/md";
 import { BsFillCarFrontFill, BsBank2 } from "react-icons/bs";
 
 //*file import
-import logoImage from "../../assets/image/logo.png";
+import logoImage from "../../assets/image/KABS 3D Logo.png";
 
 const sidebarItems = [
   {
@@ -100,13 +100,13 @@ function Sidebar({ children }) {
         <div className="_main-container flex flex-row">
           <div className="_sidebar self-start sticky top-0 bg-slate-50 border-r-[.1px] border-gray-300 bg-light-blue-700  w-[60px] sm:w-28 md:w-44 lg:w-48 xl:w-52">
             <div className="pt-8 ml-2 md:pl-3 lg:pl-4 h-screen overflow-y-auto">
-              <div className="_logo-container lg:pl-2 md:ml-3  pb-10 md:w-28 lg:w-32">
+              <div className="_logo-container pb-8 pr-2">
                 <Link to="/">
-                  <div className="bg-white p-2 rounded-full md:rounded-md lg:rounded-lg xl:rounded-xl">
+                  <div className="bg-white p-1.5 rounded-lg flex items-center justify-center w-full">
                     <img
                       src={logoImage}
-                      alt="Lead Up"
-                      className="w-8 md:w-40 lg:w-48 xl:w-52"
+                      alt="AutoFinance"
+                      className="w-full h-auto object-contain max-h-12 md:max-h-16 lg:max-h-20"
                     />
                   </div>
                 </Link>

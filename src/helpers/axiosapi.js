@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const axiosapi = axios.create({
-    baseURL: 'https://autofinanceapi.kabsdigital.com/api',
+    baseURL: import.meta.env.VITE_API_URL || '/api',
     withCredentials: true,
 });
 
-export default axiosapi
+export default axiosapi

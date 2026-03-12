@@ -330,40 +330,41 @@ function Account() {
           )}
         </div>
 
-        <div className="flex justify-center items-center my-3 lg:my-5">
-          <div className="flex items-center gap-4">
-            <Button
-              size="sm"
-              variant="text"
-              className="flex items-center gap-2"
-              color="light-blue"
-              onClick={prev}
-              disabled={currentPage === 1}
-            >
-              <LeftArrow className="h-4 w-4" /> Previous
-            </Button>
-            <div className="flex items-center gap-2">
-              {/*loop the pageNumberLimit*/}
-              {new Array(pageNumberLimit).fill("").map((_, idx) => {
-                const index = idx + 1;
-                return (
-                  <IconButton key={index}  {...getItemProps(index)}>{index}</IconButton>
-                );
-              })}
+        {rows.length > 0 && (
+          <div className="flex justify-center items-center my-3 lg:my-5">
+            <div className="flex items-center gap-4">
+              <Button
+                size="sm"
+                variant="text"
+                className="flex items-center gap-2"
+                color="light-blue"
+                onClick={prev}
+                disabled={currentPage === 1}
+              >
+                <LeftArrow className="h-4 w-4" /> Previous
+              </Button>
+              <div className="flex items-center gap-2">
+                {new Array(pageNumberLimit).fill("").map((_, idx) => {
+                  const index = idx + 1;
+                  return (
+                    <IconButton key={index} {...getItemProps(index)}>{index}</IconButton>
+                  );
+                })}
+              </div>
+              <Button
+                size="sm"
+                variant="text"
+                className="flex items-center gap-2"
+                color="light-blue"
+                onClick={next}
+                disabled={currentPage === pageNumberLimit}
+              >
+                Next
+                <RightArrow className="h-4 w-4" />
+              </Button>
             </div>
-            <Button
-              size="sm"
-              variant="text"
-              className="flex items-center gap-2"
-              color="light-blue"
-              onClick={next}
-              disabled={currentPage === pageNumberLimit}
-            >
-              Next
-              <RightArrow className="h-4 w-4" />
-            </Button>
           </div>
-        </div>
+        )}
       </div>
     </Sidebar>
   );

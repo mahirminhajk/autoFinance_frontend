@@ -13,7 +13,7 @@ import { MdLocalLibrary, MdAccountBalanceWallet, MdMenu, MdClose } from "react-i
 import { BsBank2 } from "react-icons/bs";
 
 //*file import
-import logoImage from "../../assets/image/AutoFinance.png";
+import logoImage from "../../assets/image/AutoFinance Logo.png";
 
 const sidebarItems = [
   {

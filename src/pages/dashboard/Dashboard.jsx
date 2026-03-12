@@ -6,7 +6,7 @@ import {
   RiUserSearchFill,
 } from "react-icons/ri";
 import { BsBank2, BsFillPersonCheckFill } from "react-icons/bs";
-import { MdPendingActions } from "react-icons/md";
+import { MdPendingActions, MdAlternateEmail } from "react-icons/md";
 
 //*comp
 import Sidebar from "../../components/sidebar/Sidebar";
@@ -148,6 +148,7 @@ function Dashboard() {
             </div>
           </div>
 
+         
           {/* Customers Section */}
           <div className="mb-6">
             <div className="flex items-center gap-2 mb-4">

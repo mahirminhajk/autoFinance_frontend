@@ -4,7 +4,7 @@ import path from 'path';
 import fs from 'fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const src = path.join(__dirname, '../src/assets/image/KABS 3D Logo.jpg');
+const src = path.join(__dirname, '../src/assets/image/AutoFinance.png');
 const out = path.join(__dirname, '../public');
 
 if (!fs.existsSync(out)) fs.mkdirSync(out, { recursive: true });

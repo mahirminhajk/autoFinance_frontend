@@ -10,8 +10,6 @@ import axiosapi from "./helpers/axiosapi";
 //*comp
 import Login from './pages/login/Login';
 import ForgetPassword from "./pages/forgetPassword/ForgetPassword";
-import PWAInstallPrompt from './components/PWAInstallPrompt';
-
 
 function App() {
 
@@ -33,7 +31,6 @@ function App() {
   if (user) {
     return (
       <>
-        <PWAInstallPrompt />
         <Routes>
           {routeHelper.map((routePath, i) => (
             <Route key={i} path={routePath.path} element={routePath.comp} />
@@ -44,7 +41,6 @@ function App() {
   } else {
     return (
       <>
-        <PWAInstallPrompt />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
@@ -57,5 +53,3 @@ function App() {
 }
 
 export default App
-
-

@@ -1,4 +1,4 @@
-import logoImage from "../../../assets/image/KABS 3D Logo.png";
+import logoImage from "../../../assets/image/AutoFinance.png";
 import { Breadcrumbs, Button, Typography } from "@material-tailwind/react";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import { AiFillHome } from "react-icons/ai";

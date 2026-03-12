@@ -11,7 +11,7 @@ import { AuthContext } from "../../context/AuthContext";
 import axiosapi from "../../helpers/axiosapi";
 
 //* assets
-import logoImage from "../../assets/image/KABS 3D Logo.jpg";
+import logoImage from "../../assets/image/AutoFinance Logo.png";
 import { Link } from "react-router-dom";
 
 function Login() {

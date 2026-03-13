@@ -1,9 +1,11 @@
 import { useState } from "react";
 import "./AccTable.css";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
+import { MdAccountBalanceWallet } from "react-icons/md";
 import { convertMongoDateToSimpleDate } from "../../../helpers/dateConverter";
 import { AccModalEdit } from "./AccModalEdit";
 import { Button } from "@material-tailwind/react";
+
 
 export const AccTable = ({ rows, deleteRow, setRows }) => {
   const [showModal, setShowModal] = useState(false);
@@ -27,43 +29,61 @@ export const AccTable = ({ rows, deleteRow, setRows }) => {
           </thead>
 
           <tbody className="text-center  lg:text-base md:text-sm text-xs">
-            {rows.map((row, idx) => {
-              const labelText = row.label;
-              const date = convertMongoDateToSimpleDate(row.date);
+            {rows.length === 0 ? (
+              <tr>
+                <td colSpan="5" className="py-16 px-6">
+                  <div className="flex flex-col items-center justify-center text-center gap-3">
+                    <div className="w-14 h-14 rounded-2xl bg-purple-50 flex items-center justify-center">
+                      <MdAccountBalanceWallet className="text-purple-400 text-3xl" />
+                    </div>
+                    <div>
+                      <p className="text-gray-700 font-bold text-base">No Transactions Found</p>
+                      <p className="text-gray-400 text-sm mt-1">
+                        No account transactions match your current search or filter.
+                      </p>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            ) : (
+              rows.map((row, idx) => {
+                const labelText = row.label;
+                const date = convertMongoDateToSimpleDate(row.date);
 
-              return (
-                <tr key={idx} className="">
-                  <td>{date}</td>
-                  <td>
-                    <span>{labelText}</span>
-                  </td>
-                  <td className="overflow-hidden whitespace-normal">
-                    {row.details}
-                  </td>
-                  <td>{row.amount}</td>
-                  <td className="fit">
-                    <span className="actions">
-                      <>
-                        <BsFillTrashFill
+                return (
+                  <tr key={idx} className="">
+                    <td>{date}</td>
+                    <td>
+                      <span>{labelText}</span>
+                    </td>
+                    <td className="overflow-hidden whitespace-normal">
+                      {row.details}
+                    </td>
+                    <td>{row.amount}</td>
+                    <td className="fit">
+                      <span className="actions">
+                        <>
+                          <BsFillTrashFill
+                            onClick={() => {
+                              setDeleteId(row._id);
+                              setShowModal(true);
+                            }}
+                            className="delete-btn"
+                          />
+                        </>
+                        <BsFillPencilFill
+                          className="edit-btn"
                           onClick={() => {
-                            setDeleteId(row._id);
-                            setShowModal(true);
+                            setEditModelOpen(true);
+                            setEditTransaction(row);
                           }}
-                          className="delete-btn"
                         />
-                      </>
-                      <BsFillPencilFill
-                        className="edit-btn"
-                        onClick={() => {
-                          setEditModelOpen(true);
-                          setEditTransaction(row);
-                        }}
-                      />
-                    </span>
-                  </td>
-                </tr>
-              );
-            })}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })
+            )}
           </tbody>
         </table>
       </div>

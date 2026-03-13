@@ -1,24 +1,23 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router";
-import { Button, Input, Typography } from "@material-tailwind/react";
 import { Spinner } from "@material-tailwind/react";
-// import { FaUserAlt } from "react-icons/fa";
+import { MdAlternateEmail, MdLockOutline, MdVisibility, MdVisibilityOff } from "react-icons/md";
 
 //* auth
 import { AuthContext } from "../../context/AuthContext";
 import axiosapi from "../../helpers/axiosapi";
 
-//*file import
-import logoImage from "../../assets/image/logo.png";
+//* assets
+import logoImage from "../../assets/image/AutoFinance Logo.png";
 import { Link } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
-
   const { loading, error, dispatch } = useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState(false);
 
   const loginSchema = z.object({
     username: z.string().min(2).max(30).toLowerCase(),
@@ -29,12 +28,9 @@ function Login() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    resolver: zodResolver(loginSchema),
-  });
+  } = useForm({ resolver: zodResolver(loginSchema) });
 
   const handleLogin = async (data) => {
-    //* make it in try catch block
     try {
       dispatch({ type: "LOGIN_START" });
       const res = await axiosapi.post("/auth/login", data);
@@ -43,88 +39,160 @@ function Login() {
     } catch (error) {
       dispatch({
         type: "LOGIN_FAILURE",
-        payload: error.response.data ? error.response.data : error,
+        payload: error.response?.data || { message: "Network error. Please try again." },
       });
     }
   };
 
-  //* convert username to lowercase
   const handleUsernameInput = (e) => {
     e.target.value = e.target.value.toLowerCase();
   };
 
   return (
-    <div className="flex justify-center items-center bg-gradient-to-r from-cyan-400 to-purple-400  ">
-      <div className="container h-screen  flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0 ">
-        <div className=" rounded-lg p-3 bg-white">
-          <img src={logoImage} alt="Sample image" />
+    <div className="min-h-screen flex">
+      {/* ── Left Panel (Brand) ── */}
+      <div
+        className="hidden md:flex flex-col items-center justify-center w-1/2 px-12 gap-8"
+        style={{ background: "linear-gradient(145deg, #0f172a 0%, #1e3a8a 50%, #4c1d95 100%)" }}
+      >
+        {/* Logo */}
+        <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-5 border border-white/20 shadow-2xl">
+          <img
+            src={logoImage}
+            alt="AutoFinance"
+            className="w-32 h-32 lg:w-40 lg:h-40 rounded-2xl object-cover"
+          />
         </div>
-        <div className="md:w-1/3 max-w-sm">
-          <div className="text-center md:text-left">
-            <div className="flex justify-center md:justify-start lg:justify-start mb-3">
-              {/* <FaUserAlt className=" text-lg md:text-2xl lg:text-3xl  " /> */}
-              <Typography className="text-lg md:text-2xl lg:text-3xl ml-3 font-semibold lg:font-bold text-center text-black-700 text-white uppercase ">
-                Login
-              </Typography>
-            </div>
-            <div>
-              <form onSubmit={handleSubmit(handleLogin)}>
-                <div className="w-[250px] md:w-[300px] lg:w-[500px]">
-                  <Input
-                    className=" bg-white text-black text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded"
-                    type="text"
-                    color="red"
-                    label="Username"
-                    onInput={handleUsernameInput}
-                    {...register("username")}
-                    error={errors.username ? true : false}
-                  />
-                </div>
-                <div className="my-5 w-[250px] md:w-[300px] lg:w-[500px] ">
-                  <Input
-                    className=" bg-white text-sm w-full px-4 py-2 border text-black border-solid border-gray-300 rounded"
-                    type="password"
-                    color="red"
-                    label="Password"
-                    {...register("password")}
-                    error={errors.password ? true : false}
-                  />
-                </div>
-                <div>
-                  <Link to="/forget-password">
-                    <p className="underline hover:text-red-200 text-white font-medium font-serif text-sm lg:text-lg">
-                      Forgot Password
-                    </p>
-                  </Link>
-                </div>
-                <Button
-                  size="sm"
-                  type="submit"
-                  disabled={loading}
-                  className="mt-4 bg-blue-600 hover:bg-blue-700  text-white uppercase rounded tracking-wider"
-                >
-                  Login
-                </Button>
-              </form>
 
-              <div>
-                {error && (
-                  <span className="error-message text-red-700 text-xs md:text-sm lg:text-base mt-2">
-                    {error.message}
-                  </span>
-                )}
-              </div>
+        {/* Brand text */}
+        <div className="text-center">
+          <h1 className="text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+            Auto Finance
+          </h1>
+          <p className="text-white/50 text-sm uppercase tracking-[0.2em] font-medium mt-2">
+            Smart Finance Management
+          </p>
+        </div>
+
+        {/* Feature pills */}
+        <div className="flex flex-col gap-3 w-full max-w-xs">
+          {["Customer Tracking", "Dealer & Bank Management"].map((feat) => (
+            <div key={feat} className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl px-4 py-3">
+              <div className="w-2 h-2 rounded-full bg-cyan-400 flex-shrink-0" />
+              <span className="text-white/70 text-sm font-medium">{feat}</span>
             </div>
-          </div>
+          ))}
         </div>
       </div>
-      {loading && (
-        <div className="absolute top-1/2 left-1/2">
-          <div>
-            <Spinner color="blue" className="h-8 w-8" />
-          </div>
+
+      {/* ── Right Panel (Form) ── */}
+      <div className="flex flex-col items-center justify-center w-full md:w-1/2 bg-gray-50 px-6 lg:px-16">
+        {/* Mobile logo */}
+        <div className="flex md:hidden flex-col items-center gap-3 mb-8">
+          <img src={logoImage} alt="AutoFinance" className="w-16 h-16 rounded-2xl object-cover shadow-lg" />
+          <h1 className="text-2xl font-extrabold text-gray-900">AutoFinance</h1>
         </div>
-      )}
+
+        <div className="w-full max-w-md">
+          {/* Heading */}
+          <div className="mb-8">
+            <h2 className="text-2xl lg:text-3xl font-extrabold text-gray-900">Welcome back</h2>
+            <p className="text-gray-400 text-sm mt-1">Sign in to your account to continue</p>
+          </div>
+
+          <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col gap-5">
+            {/* Username */}
+            <div>
+              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+                Username
+              </label>
+              <div className={`flex items-center gap-3 bg-white border rounded-xl px-4 py-3 shadow-sm transition-colors ${errors.username ? "border-red-400" : "border-gray-200 focus-within:border-indigo-400"}`}>
+                <MdAlternateEmail className="text-gray-400 text-lg flex-shrink-0" />
+                <input
+                  type="text"
+                  placeholder="Enter your username"
+                  className="flex-1 outline-none bg-transparent text-gray-800 text-sm"
+                  onInput={handleUsernameInput}
+                  {...register("username")}
+                />
+              </div>
+              {errors.username && (
+                <p className="text-red-500 text-xs mt-1">{errors.username.message}</p>
+              )}
+            </div>
+
+            {/* Password */}
+            <div>
+              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+                Password
+              </label>
+              <div className={`flex items-center gap-3 bg-white border rounded-xl px-4 py-3 shadow-sm transition-colors ${errors.password ? "border-red-400" : "border-gray-200 focus-within:border-indigo-400"}`}>
+                <MdLockOutline className="text-gray-400 text-lg flex-shrink-0" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  className="flex-1 outline-none bg-transparent text-gray-800 text-sm"
+                  {...register("password")}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((v) => !v)}
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                  tabIndex={-1}
+                >
+                  {showPassword ? <MdVisibilityOff /> : <MdVisibility />}
+                </button>
+              </div>
+              {errors.password && (
+                <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>
+              )}
+            </div>
+
+            {/* Forgot password */}
+            <div className="flex justify-end -mt-2">
+              <Link to="/forget-password" className="text-indigo-600 hover:text-indigo-800 text-xs font-semibold transition-colors">
+                Forgot Password?
+              </Link>
+            </div>
+
+            {/* Error message */}
+            {error && (
+              <div className="bg-red-50 border border-red-200 text-red-600 rounded-xl px-4 py-3 text-sm font-medium">
+                {error.message}
+              </div>
+            )}
+
+            {/* Submit */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 rounded-xl font-bold text-white text-sm transition-all disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              style={{ background: "linear-gradient(135deg, #4f46e5, #7c3aed)" }}
+            >
+              {loading ? (
+                <>
+                  <Spinner color="white" className="h-4 w-4" />
+                  Signing in...
+                </>
+              ) : (
+                "Sign In"
+              )}
+            </button>
+          </form>
+
+          <p className="text-center text-gray-400 text-xs mt-8">
+            © 2026 AutoFinance ·{" "}
+            <a
+              href="https://www.kabsdigital.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-indigo-500 hover:text-indigo-700 font-semibold transition-colors"
+            >
+              KABS Digital
+            </a>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

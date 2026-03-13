@@ -11,7 +11,7 @@ import {
 } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import { MdPersonSearch } from "react-icons/md";
-import { RiWhatsappFill as WhatsappIcon } from "react-icons/ri";
+import { RiWhatsappFill as WhatsappIcon, RiUser3Fill } from "react-icons/ri";
 import {
   BsPersonPlusFill,
   BsFillArrowRightSquareFill as RightArrow,
@@ -341,13 +341,14 @@ function Customer() {
         ) : (
           <div className="bg-white pt-3 mt-3 rounded-sm flex-1">
             {customers.length === 0 ? (
-              <div className="flex justify-center flex-col items-center h-[70vh]">
-                <Typography className="text-base" color="red">
-                  No Customer Found
-                </Typography>
-                <Typography variant="lead" className="text-base" color="green">
-                  Please Add Customer
-                </Typography>
+              <div className="flex flex-col items-center justify-center py-16 px-6 text-center">
+                <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center mb-3">
+                  <RiUser3Fill className="text-blue-400 text-3xl" />
+                </div>
+                <p className="text-gray-700 font-bold text-base">No Customers Found</p>
+                <p className="text-gray-400 text-sm mt-1">
+                  No customers match your current search or filter. Try adjusting your filters.
+                </p>
               </div>
             ) : (
               <table className="w-full">
@@ -422,59 +423,58 @@ function Customer() {
             )}
           </div>
         )}
-<div className="flex justify-center items-center my-3 lg:my-5">
-  <div className="flex items-center gap-4">
-    <Button
-      size="sm"
-      variant="text"
-      className="flex items-center gap-2"
-      color="light-blue"
-      onClick={prev}
-      disabled={currentPage === 1}
-    >
-      <LeftArrow className="h-4 w-4" /> Previous
-    </Button>
+{customers.length > 0 && (
+  <div className="flex justify-center items-center my-3 lg:my-5">
+    <div className="flex items-center gap-4">
+      <Button
+        size="sm"
+        variant="text"
+        className="flex items-center gap-2"
+        color="light-blue"
+        onClick={prev}
+        disabled={currentPage === 1}
+      >
+        <LeftArrow className="h-4 w-4" /> Previous
+      </Button>
 
-    <div className="flex items-center gap-2">
-      {/* Loop through the page numbers with conditional rendering */}
-      {new Array(pageNumberLimit).fill("").map((_, idx) => {
-        const index = idx + 1;
-        
-        // Only render certain page numbers or ellipses based on the index
-        if (
-          index === 1 || // Always show the first page
-          index === pageNumberLimit || // Always show the last page
-          index === currentPage || // Always show the current page
-          Math.abs(index - currentPage) <= 1 // Show pages close to currentPage
-        ) {
-          return (
-            <IconButton key={index} {...getItemProps(index)}>
-              {index}
-            </IconButton>
-          );
-        } else if ( // Show ellipses where needed
-          (index === currentPage - 2 && currentPage > 3) ||
-          (index === currentPage + 2 && currentPage < pageNumberLimit - 2)
-        ) {
-          return <span key={index}>...</span>;
-        }
-        return null;
-      })}
+      <div className="flex items-center gap-2">
+        {new Array(pageNumberLimit).fill("").map((_, idx) => {
+          const index = idx + 1;
+          if (
+            index === 1 ||
+            index === pageNumberLimit ||
+            index === currentPage ||
+            Math.abs(index - currentPage) <= 1
+          ) {
+            return (
+              <IconButton key={index} {...getItemProps(index)}>
+                {index}
+              </IconButton>
+            );
+          } else if (
+            (index === currentPage - 2 && currentPage > 3) ||
+            (index === currentPage + 2 && currentPage < pageNumberLimit - 2)
+          ) {
+            return <span key={index}>...</span>;
+          }
+          return null;
+        })}
+      </div>
+
+      <Button
+        size="sm"
+        variant="text"
+        className="flex items-center gap-2"
+        color="light-blue"
+        onClick={next}
+        disabled={currentPage === pageNumberLimit}
+      >
+        Next
+        <RightArrow className="h-4 w-4" />
+      </Button>
     </div>
-
-    <Button
-      size="sm"
-      variant="text"
-      className="flex items-center gap-2"
-      color="light-blue"
-      onClick={next}
-      disabled={currentPage === pageNumberLimit}
-    >
-      Next
-      <RightArrow className="h-4 w-4" />
-    </Button>
   </div>
-</div>
+)}
 
       </section>
     </Sidebar>

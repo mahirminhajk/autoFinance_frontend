@@ -1,18 +1,20 @@
 import { Avatar, Card, CardBody, Typography } from "@material-tailwind/react";
 import { useNavigate } from "react-router";
+import { RiUserSearchFill } from "react-icons/ri";
 
 export const DealerList = ({ dealers }) => {
   const navigate = useNavigate();
   return (
     <>
       {dealers.length === 0 ? (
-        <div className="flex justify-center flex-col items-center h-[70vh]">
-          <Typography variant="h5" color="red">
-            No Dealers Found
-          </Typography>
-          <Typography variant="lead" color="green">
-            Please Add Dealers
-          </Typography>
+        <div className="flex flex-col items-center justify-center py-16 px-6 text-center">
+          <div className="w-14 h-14 rounded-2xl bg-teal-50 flex items-center justify-center mb-3">
+            <RiUserSearchFill className="text-teal-500 text-3xl" />
+          </div>
+          <p className="text-gray-700 font-bold text-base">No Dealers Found</p>
+          <p className="text-gray-400 text-sm mt-1">
+            No dealers match your search or filter. Try a different query or add a new dealer.
+          </p>
         </div>
       ) : (
         <div className=" border-gray-200 py-2 md:py-3 lg:py-5 px-2 md:px-3 lg:px-5 gap-5 grid grid-cols grid-cols-{n} md:grid-cols-2 lg:grid-cols-4  gap-y-3 gap-x-3 ">

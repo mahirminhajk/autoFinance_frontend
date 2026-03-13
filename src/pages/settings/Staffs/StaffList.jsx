@@ -29,7 +29,7 @@ function StaffList() {
         const res = await axiosapi.get("/user");
         setUsers(res.data);
       } catch (err) {
-        setError(err);
+        setUsers([]);
       }
       setLoading(false);
     };

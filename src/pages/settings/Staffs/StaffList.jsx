@@ -100,36 +100,56 @@ function StaffList() {
           </div>
         </section>
 
-        <div className=" flex flex-col gap-3 mt-3 md:mt-10 lg:mt-16">
+        <div className="flex flex-col gap-3 mt-3 md:mt-10 lg:mt-16">
           {/* Staff start */}
-          {users.map((user, i) => (
-            <div
-              onClick={() => navigate(`/settings/staffs/${user._id}/profile`)}
-              key={i}
-              className="bg-gray-100 h-auto mx-5 lg:mx-10 rounded-md drop-shadow-md mt-5 cursor-pointer
-           btn relative inline-flex items-center justify-start overflow-hidden transition-all hover:bg-blue-200 group"
-            >
-              <div className="flex flex-1 gap-2 lg:gap-5">
-                <BsFillPersonVcardFill className="m-3 text-2xl ml-3 flex-none text-accent" />
-                <Typography className="m-3 font-bold lg:text-base md:text-sm text-xs">
-                  {user.username || ""}
-                </Typography>
-                <Typography className="m-3 font-bold lg:text-base md:text-sm text-xs">
-                  {user.name || "No-Name"}
-                </Typography>
-                <Typography className="m-3 font-bold lg:text-base md:text-sm text-xs">
-                  {user.phone || "No-Phone"}
-                </Typography>
-                <Typography className="m-3 font-bold lg:text-base md:text-sm text-xs">
-                  {user.level === 3
-                    ? "Super-Admin"
-                    : user.level === 2
-                    ? "Admin"
-                    : "Staff"}
-                </Typography>
+          {users.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-16 px-6 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mb-4">
+                <BsFillPersonVcardFill className="text-3xl text-gray-300" />
               </div>
+              <h3 className="text-gray-700 font-bold text-lg mb-1">No Staff Found</h3>
+              <p className="text-gray-400 text-sm mb-5">
+                There are no staff members yet. Add your first staff member to get started.
+              </p>
+              <Link to="/settings/staffs/add">
+                <Button
+                  size="sm"
+                  className="flex items-center gap-2 bg-purple-900 hover:bg-purple-800 text-white normal-case"
+                >
+                  <BsPersonPlusFill size={14} /> Add First Staff
+                </Button>
+              </Link>
             </div>
-          ))}
+          ) : (
+            users.map((user, i) => (
+              <div
+                onClick={() => navigate(`/settings/staffs/${user._id}/profile`)}
+                key={i}
+                className="bg-gray-100 h-auto mx-5 lg:mx-10 rounded-md drop-shadow-md mt-5 cursor-pointer
+             btn relative inline-flex items-center justify-start overflow-hidden transition-all hover:bg-blue-200 group"
+              >
+                <div className="flex flex-1 gap-2 lg:gap-5">
+                  <BsFillPersonVcardFill className="m-3 text-2xl ml-3 flex-none text-accent" />
+                  <Typography className="m-3 font-bold lg:text-base md:text-sm text-xs">
+                    {user.username || ""}
+                  </Typography>
+                  <Typography className="m-3 font-bold lg:text-base md:text-sm text-xs">
+                    {user.name || "No-Name"}
+                  </Typography>
+                  <Typography className="m-3 font-bold lg:text-base md:text-sm text-xs">
+                    {user.phone || "No-Phone"}
+                  </Typography>
+                  <Typography className="m-3 font-bold lg:text-base md:text-sm text-xs">
+                    {user.level === 3
+                      ? "Super-Admin"
+                      : user.level === 2
+                      ? "Admin"
+                      : "Staff"}
+                  </Typography>
+                </div>
+              </div>
+            ))
+          )}
           {/* Staff End */}
         </div>
       </div>

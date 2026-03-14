@@ -28,7 +28,7 @@ function DocUpdater({
     img1: null,
     img2: null,
   });
-  const [verifyData, setVerifyData] = useState(docData.verifydoc);
+  const [verifyData, setVerifyData] = useState(docData?.verifydoc ?? {});
   const [updateInfo, setUpdateInfo] = useState({
     img1: "stay",
     img2: "stay",
@@ -48,7 +48,7 @@ function DocUpdater({
       setImgSrc((prev) => ({ ...prev, img1: docData.img1 }));
     if (docData.img2 !== null && docData.img2 !== "false")
       setImgSrc((prev) => ({ ...prev, img2: docData.img2 }));
-    setVerifyData(docData.verifydoc);
+    setVerifyData(docData?.verifydoc ?? {});
     setLoading(false);
   }
 
@@ -268,7 +268,7 @@ function DocUpdater({
                 )}
               </div>
               <div className="flex flex-col lg:text-base md:text-sm text-xs">
-                {Object.keys(verifyData).map((key) => (
+                {Object.entries(verifyData ?? {}).map(([key, value]) => (
                   <Checkbox
                     key={key}
                     color="blue"
@@ -276,7 +276,7 @@ function DocUpdater({
                     label={key}
                     name={key}
                     onChange={(e) => handleCheckBox(e)}
-                    checked={verifyData[key]}
+                    checked={Boolean(value)}
                     disabled={loading}
                   />
                 ))}

@@ -11,12 +11,13 @@ import {
 import DocUpdater from "./DocUpdater";
 
 function DocViewer({ docObj, cusId, oneImageInput, setDocsArray, setDocs }) {
-  const [docData, setDocData] = useState(docObj);
+  const [docData, setDocData] = useState(docObj ?? {});
   const [err, setErr] = useState(null);
   const [loading,  setLoading] = useState(false);
-  const [docStaus, setDocStatus] = useState(docObj.status);
+  const [docStaus, setDocStatus] = useState(docObj?.status ?? "");
 
   const fetchThisDoc = async () => {
+    if (!docData?.docname) return;
     try {
       setLoading(true)
       const res = await axiosapi.get(`/cus/doc/${cusId}/${docData.docname}`);
@@ -39,11 +40,13 @@ function DocViewer({ docObj, cusId, oneImageInput, setDocsArray, setDocs }) {
   };
 
   useEffect(() => {
-    if (docData.status !== "done") {
+    if (docData?.status && docData.status !== "done") {
       setDocStatus(docData.status);
       setTimeout(fetchThisDoc, 2000);
     }   
   }, [docData, docStaus]);
+
+  const verifyDocEntries = Object.entries(docData?.verifydoc ?? {});
 
   if(loading){
     return(
@@ -58,7 +61,7 @@ function DocViewer({ docObj, cusId, oneImageInput, setDocsArray, setDocs }) {
           className="font-semibold lg:font-bold text-sm md:text-base lg:text-lg mb-2"
           color="blue-gray"
         >
-          {docData.docname.toUpperCase()}
+          {(docData?.docname ?? "").toUpperCase()}
         </Typography>
         <div>
           <div className="grid grid-cols md:grid-cols-2 lg:grid-cols-2">
@@ -98,13 +101,13 @@ function DocViewer({ docObj, cusId, oneImageInput, setDocsArray, setDocs }) {
               </div>
             )}
             <div className="flex flex-col lg:text-base md:text-sm text-xs">
-              {Object.keys(docData.verifydoc).map((key) => (
+              {verifyDocEntries.map(([key, value]) => (
                 <Checkbox
                   key={key}
                   color="blue"
                   id={key}
                   label={key}
-                  checked={docData.verifydoc[key]}
+                  checked={Boolean(value)}
                   disabled
                 />
               ))}
@@ -113,14 +116,14 @@ function DocViewer({ docObj, cusId, oneImageInput, setDocsArray, setDocs }) {
         </div>
       </CardBody>
         <CardFooter className="p-0">
-          {docData.status === "done" && 
+          {docData?.status === "done" && 
           <DocUpdater
             docData={docData}
             setDocData={setDocData}
             docStaus={docStaus}
             setDocStatus={setDocStatus}
             cusId={cusId}
-            docname={docData.docname}
+            docname={docData?.docname}
             oneImageInput={oneImageInput}
           />}
         </CardFooter>

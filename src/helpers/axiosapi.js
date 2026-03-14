@@ -4,5 +4,5 @@ const axiosapi = axios.create({
     baseURL: 'https://autofinanceapi.kabsdigital.com/api',
     withCredentials: true,
 });
-//fix1
+//local:  baseURL: 'http://localhost:8000/api',
 export default axiosapi
